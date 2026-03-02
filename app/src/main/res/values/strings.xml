@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Android Test</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+    <string name="new_platform">Plataforma Nova</string>
+    <string name="old_platform">Plataforma Antiga</string>
+
+    <string name="logout">Sair</string>
+    <string name="logout_question">Sair?</string>
+    <string name="do_you_really_want_to_log_out">Deseja realmente sair do app?</string>
+
 </resources>
