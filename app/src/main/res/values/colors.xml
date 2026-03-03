@@ -14,7 +14,7 @@
 
     <color name="bgPrimary">#FFFFFFFF</color>
     <color name="bgPrimaryPressed">#CCFFFFFF</color>
-    <color name="textPrimary">#525252</color>
+    <color name="textPrimary">#1F1D1D</color>
 
 
     <color name="bgBrandSolid">#c83c2b</color>

@@ -20,22 +20,47 @@ import kotlinx.coroutines.launch
 
 class RWMyDataViewModel(
     private val repository: IMyDataRepository
-) : ViewModel() {
+) : ViewModel(), MyDataViewModelContract {
+
     private val _state = MutableStateFlow(MyDataUiState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private val _event = Channel<MyDataEvent>()
-    val event = _event.receiveAsFlow()
+    override val event = _event.receiveAsFlow()
 
     init {
         fetchMyData()
     }
 
-    fun onAction(action: MyDataAction) {
+    override fun onAction(action: MyDataAction) {
         when (action) {
             is MyDataAction.OnBackPressed -> {
                 viewModelScope.launch {
                     _event.send(MyDataEvent.OnBackPressed)
+                }
+            }
+
+            MyDataAction.OnDownloadClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.Download)
+                }
+            }
+
+            MyDataAction.OnLogoutClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.ShowLogout)
+                }
+            }
+
+            MyDataAction.OnMyPlanClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.NavigateToMyPlan)
+                }
+            }
+
+            MyDataAction.LogoutAndCloseApp -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.LogoutAndCloseApp)
                 }
             }
 
@@ -49,7 +74,7 @@ class RWMyDataViewModel(
                 isLoading = true,
             )
         }
-//        delay(2000)//Mock 2s
+        delay(2000)//Mock 2s
 
         repository.fetchMyDataRW().onSuccess { myData ->
             _state.update {

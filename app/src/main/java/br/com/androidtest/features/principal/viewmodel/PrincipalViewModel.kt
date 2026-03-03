@@ -22,13 +22,13 @@ class PrincipalViewModel : ViewModel() {
 
             PrincipalAction.NewPlatformClick -> {
                 viewModelScope.launch {
-                    _event.send(PrincipalEvent.NavigateToNewPlatform)
+                    _event.send(PrincipalEvent.NavigateToNewPlatformMyData)
                 }
             }
 
             PrincipalAction.OldPlatformClick -> {
                 viewModelScope.launch {
-                    _event.send(PrincipalEvent.NavigateToOldPlatform)
+                    _event.send(PrincipalEvent.NavigateToOldPlatformMyData)
                 }
             }
 

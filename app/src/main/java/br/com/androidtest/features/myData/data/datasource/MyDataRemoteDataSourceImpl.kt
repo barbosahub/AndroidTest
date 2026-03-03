@@ -38,7 +38,7 @@ class MyDataRemoteDataSourceImpl(
 object JsonProvider {
     val json = Json {
         ignoreUnknownKeys = true
-        isLenient = true       // opcional, útil para JSON não rigoroso
-        prettyPrint = true     // opcional, se quiser logs bonitos
+        isLenient = true
+        prettyPrint = true
     }
 }

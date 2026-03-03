@@ -9,9 +9,15 @@ sealed interface RootNavRoute {
     object Main : RootNavRoute
 
     @Serializable
-    object OldPlatform : RootNavRoute
+    object OldPlatformMyData : RootNavRoute
 
     @Serializable
-    object NewPlatform : RootNavRoute
+    object NewPlatformMyData : RootNavRoute
+
+    @Serializable
+    object OldPlatformMyPlan : RootNavRoute
+
+    @Serializable
+    object NewPlatformMyPlan : RootNavRoute
 
 }

@@ -21,7 +21,15 @@
     <string name="age">Idade:</string>
 
 
-    <string name="my_plan">Meu Plano</string>
+    <string name="my_plan">Meu plano</string>
+    <string name="status">Status:</string>
+    <string name="my_number">Meu número:</string>
+    <string name="download">Baixar contrato</string>
+    <string name="message">Mensagem</string>
+    <string name="plan">Plano</string>
+    <string name="bonus">Bônus para redes sociais</string>
+    <string name="included_apps">Apps inclusos:</string>
+    <string name="share">Compartilhar</string>
 
-
+    <string name="label">Label</string>
 </resources>

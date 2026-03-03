@@ -22,18 +22,19 @@ import kotlinx.coroutines.launch
 
 class NPMyDataViewModel(
     private val repository: IMyDataRepository
-) : ViewModel() {
+) : ViewModel(), MyDataViewModelContract {
+
     private val _state = MutableStateFlow(MyDataUiState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private val _event = Channel<MyDataEvent>()
-    val event = _event.receiveAsFlow()
+    override val event = _event.receiveAsFlow()
 
     init {
         fetchMyData()
     }
 
-    fun onAction(action: MyDataAction) {
+    override fun onAction(action: MyDataAction) {
         when (action) {
             is MyDataAction.OnBackPressed -> {
                 viewModelScope.launch {
@@ -81,7 +82,7 @@ class NPMyDataViewModel(
             )
         }
 
-//        delay(2000)//Mock 2s
+        delay(2000)//Mock 2s
 
         repository.fetchMyDataNP()
             .onSuccess { myData ->

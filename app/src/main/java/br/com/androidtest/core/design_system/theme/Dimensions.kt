@@ -11,6 +11,7 @@ object Dimensions {
     val componentHeightSize: ComponentHeightSize = ComponentHeightSize()
     val componentWidthSize: ComponentWidthSize = ComponentWidthSize()
     val avatarImageSize: AvatarImageSize = AvatarImageSize()
+    val socialsImageSize: SocialsImageSize = SocialsImageSize()
 
     val itemHeight: Item = Item()
     val borderWidth: BorderWidth = BorderWidth()
@@ -19,6 +20,7 @@ object Dimensions {
 
 data class Spacing(
     val spaceNone: Dp = 0.dp,
+    val space2dp: Dp = 2.dp,
     val space4dp: Dp = 4.dp,
     val space8dp: Dp = 8.dp,
     val space12dp: Dp = 12.dp,
@@ -53,7 +55,13 @@ data class AvatarImageSize(
     val default: Dp = 100.dp
 )
 
+data class SocialsImageSize(
+    val default: Dp = 32.dp
+)
+
+
 data class FontSize( // Criado apenas como demonstração, porém o ideal é criar um Type/Typography com as fontes e tamanho de acordo com o material design.
+    val huge: TextUnit = 32.sp,
     val heading: TextUnit = 24.sp,
     val title: TextUnit = 14.sp,
     val body: TextUnit = 12.sp,

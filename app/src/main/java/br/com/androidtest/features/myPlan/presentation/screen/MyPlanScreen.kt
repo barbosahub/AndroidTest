@@ -1,4 +1,4 @@
-package br.com.androidtest.features.myData.presentation.screen
+package br.com.androidtest.features.myPlan.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,85 +22,96 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import br.com.androidtest.R
 import br.com.androidtest.core.design_system.components.Loading
 import br.com.androidtest.core.design_system.components.LrTopAppBarNavigation
 import br.com.androidtest.core.design_system.theme.AppTheme
 import br.com.androidtest.core.design_system.theme.Dimensions
 import br.com.androidtest.core.util.selectUserOrProfile
-import br.com.androidtest.features.myData.domain.model.IconEnum
-import br.com.androidtest.features.myData.presentation.action.MyDataAction
-import br.com.androidtest.features.myData.presentation.components.MyDataOptionsSection
-import br.com.androidtest.features.myData.presentation.components.MyDataProfileSection
-import br.com.androidtest.features.myData.presentation.state.MyDataUiState
+import br.com.androidtest.features.myPlan.domain.model.ExtraPlay
+import br.com.androidtest.features.myPlan.presentation.action.MyPlanAction
+import br.com.androidtest.features.myPlan.presentation.components.MyPlanSection
+import br.com.androidtest.features.myPlan.presentation.state.MyPlanUiState
 
 @Preview
 @Composable
-fun MyDataScreenPreview() {
+fun MyPlanScreenPreview() {
     AppTheme {
-        MyDataScreen(MyDataUiState()) {}
+        MyPlanScreen(MyPlanUiState()) {}
     }
 }
 
 @Composable
-fun MyDataScreenRoot(
-    uiState: MyDataUiState,
-    onAction: (MyDataAction) -> Unit
+fun MyPlanScreenRoot(
+    uiState: MyPlanUiState,
+    onAction: (MyPlanAction) -> Unit
 ) {
     if (uiState.isLoading) {
         Loading()
     } else {
-        MyDataScreen(uiState, onAction)
+        MyPlanScreen(uiState, onAction)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyDataScreen(
-    uiState: MyDataUiState, onAction: (MyDataAction) -> Unit
+fun MyPlanScreen(
+    uiState: MyPlanUiState, onAction: (MyPlanAction) -> Unit
 ) {
-    val title = uiState.result?.screen?.title
+    val name = uiState.result?.screen?.name
+    val offer = uiState.result?.screen?.offerDisplay
+    val header = uiState.result?.screen?.header
+    val content = uiState.result?.content
 
-    val profileUrl = selectUserOrProfile(
-        uiState.result?.content?.user?.avatarUrl, uiState.result?.screen?.profile?.avatarUrl
+    val planValue = selectUserOrProfile(
+        uiState.result?.screen?.planValue,
+        uiState.result?.content?.planValue
     )
 
-    val name = selectUserOrProfile(
-        uiState.result?.content?.user?.name, uiState.result?.screen?.profile?.name
+    val extraPlay = selectUserOrProfile(
+        uiState.result?.screen?.extraPlay,
+        ExtraPlay(
+            title = stringResource(R.string.included_apps),
+            options = uiState.result?.content?.extraPlay
+        )
     )
-
-    val cpf = selectUserOrProfile(
-        uiState.result?.content?.user?.documentNumberMasked,
-        uiState.result?.screen?.profile?.documentNumberMasked
-    )
-
-    val age = selectUserOrProfile(
-        uiState.result?.content?.user?.age, uiState.result?.screen?.profile?.age
-    )
-
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colorResource(br.com.androidtest.R.color.bgPrimary))
+            .background(color = colorResource(R.color.bgPrimary))
             .windowInsetsPadding(WindowInsets.systemBars), topBar = {
             LrTopAppBarNavigation(
-                bgColor = colorResource(br.com.androidtest.R.color.bgBrandSolid),
+                bgColor = colorResource(R.color.bgBrandSolid),
                 leadingIconSlot = {
                     IconButton(
                         onClick = {
-                            onAction(MyDataAction.OnBackPressed)
+                            onAction(MyPlanAction.OnBackPressed)
                         }) {
                         Icon(
                             imageVector = Icons.Filled.ChevronLeft,
-                            contentDescription = stringResource(br.com.androidtest.R.string.back),
+                            contentDescription = stringResource(R.string.back),
                             tint = Color.White
                         )
                     }
-                })
+                },
+                trailingActionsSlot = {
+                    IconButton(
+                        onClick = {
+                            onAction(MyPlanAction.OnMessageClick)
+                        }) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_message),
+                            contentDescription = stringResource(R.string.message),
+                            tint = Color.White
+                        )
+                    }
+                }
+
+            )
         }) { innerPaddings ->
         Box(
             modifier = Modifier
@@ -116,21 +127,14 @@ fun MyDataScreen(
                 verticalArrangement = Arrangement.spacedBy(Dimensions.spacing.space16dp)
             ) {
 
-                MyDataProfileSection(
-                    title = title, profileUrl = profileUrl, name = name, cpf = cpf, age = age
+                MyPlanSection(
+                    name = name,
+                    offer = offer,
+                    planValue = planValue,
+                    header = header,
+                    content = content,
+                    extraPlay = extraPlay
                 )
-
-                MyDataOptionsSection(
-                    options = uiState.result?.screen?.options, modifier = Modifier.fillMaxWidth()
-                ) { action, url ->
-
-                    when (action) {
-                        IconEnum.DOCUMENT.key -> onAction(MyDataAction.OnMyPlanClick)
-                        IconEnum.DOWNLOAD.key -> onAction(MyDataAction.OnDownloadClick)
-                        IconEnum.MESSAGE.key -> onAction(MyDataAction.OnPrivacyPolicyClick(url))
-                        IconEnum.BLOCK.key -> onAction(MyDataAction.OnLogoutClick)
-                    }
-                }
             }
         }
     }

@@ -47,11 +47,6 @@ private fun ScreenDto.toDomainScreen(): Screen {
         })
 }
 
-//"iconUrl": "ic_myplan",
-//"title": "Meu plano",
-//"action": "MY_PLAN"
-
-
 private fun OptionDto.toDomainOption(): Option {
     return Option(
         iconUrl = this.iconUrl,
