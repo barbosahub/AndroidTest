@@ -40,6 +40,36 @@ class NPMyDataViewModel(
                     _event.send(MyDataEvent.OnBackPressed)
                 }
             }
+
+            MyDataAction.OnDownloadClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.Download)
+                }
+            }
+
+            MyDataAction.OnLogoutClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.ShowLogout)
+                }
+            }
+
+            MyDataAction.OnMyPlanClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.NavigateToMyPlan)
+                }
+            }
+
+            is MyDataAction.OnPrivacyPolicyClick -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.NavigateToPrivacyPolicy(action.url))
+                }
+            }
+
+            MyDataAction.LogoutAndCloseApp -> {
+                viewModelScope.launch {
+                    _event.send(MyDataEvent.LogoutAndCloseApp)
+                }
+            }
         }
     }
 

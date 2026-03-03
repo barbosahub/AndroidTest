@@ -33,7 +33,9 @@ import br.com.androidtest.features.myData.domain.model.Option
 fun MyDataOptionsSectionPreview() {
     AppTheme {
         Box(modifier = Modifier.padding(all = Dimensions.spacing.space16dp)) {
-            MyDataOptionsSection(listOf(), Modifier)
+            MyDataOptionsSection(listOf(), Modifier) { action, url ->
+
+            }
         }
     }
 }
@@ -41,18 +43,19 @@ fun MyDataOptionsSectionPreview() {
 @Composable
 fun MyDataOptionsSection(
     options: List<Option>?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: (action: String?, url: String?) -> Unit
 ) {
     Column(
         modifier = modifier
     ) {
         options?.forEach { option ->
             MenuItem(
-                labelText = option.title ?: "Sem título",
+                labelText = option.title,
                 leadingIcon = (option.iconUrl ?: option.iconType).toUiIcon(),
                 trailingIcon = Icons.Filled.ChevronRight
-            ){
-
+            ) {
+                onClick((option.iconUrl ?: option.iconType), option.url)
             }
         }
     }

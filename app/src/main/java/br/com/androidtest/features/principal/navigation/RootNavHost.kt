@@ -18,11 +18,15 @@ import br.com.androidtest.features.principal.viewmodel.PrincipalViewModel
 import br.com.androidtest.core.util.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.androidtest.features.myData.presentation.action.MyDataAction
 import br.com.androidtest.features.myData.presentation.event.MyDataEvent
 import br.com.androidtest.features.myData.presentation.viewmodel.NPMyDataViewModel
 import br.com.androidtest.features.myData.presentation.viewmodel.RWMyDataViewModel
+import androidx.core.net.toUri
 
 @Composable
 fun RootNavHost() {
@@ -90,10 +94,51 @@ fun RootNavHost() {
             val uiState = viewModel.state.collectAsStateWithLifecycle().value
             val onAction = viewModel::onAction
 
+            val showBottomSheet = remember { mutableStateOf(false) }
+
+            ModalCard(
+                showDialog = showBottomSheet.value,
+                onDismiss = {
+                    showBottomSheet.value = false
+                }, content = {
+                    // Its hardcoded but you can get the option text by ui state.
+                    ModalContent(
+                        primaryText = stringResource(R.string.logout_question),
+                        secondaryText = stringResource(R.string.do_you_really_want_to_log_out),
+                        onConfirm = {
+                            showBottomSheet.value = false
+                            onAction(MyDataAction.LogoutAndCloseApp)
+                        },
+                        onCancel = {
+                            showBottomSheet.value = false
+                        }
+                    )
+                })
+
             ObserveAsEvents(viewModel.event) { event ->
                 when (event) {
                     MyDataEvent.OnBackPressed -> {
                         rootNavController.popBackStack()
+                    }
+
+                    MyDataEvent.Download -> {
+
+                    }
+
+                    MyDataEvent.NavigateToMyPlan -> {
+
+                    }
+
+                    is MyDataEvent.NavigateToPrivacyPolicy -> {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, event.url?.toUri()))
+                    }
+
+                    MyDataEvent.LogoutAndCloseApp -> {
+                        activity?.finishAffinity()
+                    }
+
+                    MyDataEvent.ShowLogout -> {
+                        showBottomSheet.value = !showBottomSheet.value
                     }
                 }
             }
@@ -111,10 +156,11 @@ fun RootNavHost() {
                     MyDataEvent.OnBackPressed -> {
                         rootNavController.popBackStack()
                     }
+
+                    else -> {}
                 }
             }
             MyDataScreenRoot(uiState, onAction)
         }
     }
-
 }

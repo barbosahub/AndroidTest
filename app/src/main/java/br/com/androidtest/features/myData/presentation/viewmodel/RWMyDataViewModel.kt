@@ -38,6 +38,8 @@ class RWMyDataViewModel(
                     _event.send(MyDataEvent.OnBackPressed)
                 }
             }
+
+            else -> {}
         }
     }
 
@@ -49,22 +51,20 @@ class RWMyDataViewModel(
         }
 //        delay(2000)//Mock 2s
 
-        repository.fetchMyDataRW()
-            .onSuccess { myData ->
-                _state.update {
-                    it.copy(
-                        result = myData,
-                        isLoading = false,
-                    )
-                }
+        repository.fetchMyDataRW().onSuccess { myData ->
+            _state.update {
+                it.copy(
+                    result = myData,
+                    isLoading = false,
+                )
             }
-            .onError { error ->
-                _state.update {
-                    it.copy(
-                        isLoading = false
-                    )
-                }
+        }.onError { error ->
+            _state.update {
+                it.copy(
+                    isLoading = false
+                )
             }
+        }
 
     }
 }

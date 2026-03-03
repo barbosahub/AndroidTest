@@ -30,6 +30,7 @@ import br.com.androidtest.core.design_system.components.LrTopAppBarNavigation
 import br.com.androidtest.core.design_system.theme.AppTheme
 import br.com.androidtest.core.design_system.theme.Dimensions
 import br.com.androidtest.core.util.selectUserOrProfile
+import br.com.androidtest.features.myData.domain.model.IconEnum
 import br.com.androidtest.features.myData.presentation.action.MyDataAction
 import br.com.androidtest.features.myData.presentation.components.MyDataOptionsSection
 import br.com.androidtest.features.myData.presentation.components.MyDataProfileSection
@@ -55,19 +56,16 @@ fun MyDataScreenRoot(uiState: MyDataUiState, onAction: (MyDataAction) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyDataScreen(
-    uiState: MyDataUiState,
-    onAction: (MyDataAction) -> Unit
+    uiState: MyDataUiState, onAction: (MyDataAction) -> Unit
 ) {
     val title = uiState.result?.screen?.title
 
     val profileUrl = selectUserOrProfile(
-        uiState.result?.content?.user?.avatarUrl,
-        uiState.result?.screen?.profile?.avatarUrl
+        uiState.result?.content?.user?.avatarUrl, uiState.result?.screen?.profile?.avatarUrl
     )
 
     val name = selectUserOrProfile(
-        uiState.result?.content?.user?.name,
-        uiState.result?.screen?.profile?.name
+        uiState.result?.content?.user?.name, uiState.result?.screen?.profile?.name
     )
 
     val cpf = selectUserOrProfile(
@@ -76,8 +74,7 @@ fun MyDataScreen(
     )
 
     val age = selectUserOrProfile(
-        uiState.result?.content?.user?.age,
-        uiState.result?.screen?.profile?.age
+        uiState.result?.content?.user?.age, uiState.result?.screen?.profile?.age
     )
 
 
@@ -85,54 +82,51 @@ fun MyDataScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = colorResource(br.com.androidtest.R.color.bgPrimary))
-            .windowInsetsPadding(WindowInsets.systemBars),
-        topBar = {
+            .windowInsetsPadding(WindowInsets.systemBars), topBar = {
             LrTopAppBarNavigation(
                 bgColor = colorResource(br.com.androidtest.R.color.bgBrandSolid),
                 leadingIconSlot = {
                     IconButton(
                         onClick = {
                             onAction(MyDataAction.OnBackPressed)
-                        }
-                    ) {
+                        }) {
                         Icon(
                             imageVector = Icons.Filled.ChevronLeft,
                             contentDescription = stringResource(br.com.androidtest.R.string.back),
                             tint = Color.White
                         )
                     }
-                }
-            )
-        }
-    ) { innerPaddings ->
+                })
+        }) { innerPaddings ->
         Box(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(
-                        top = innerPaddings.calculateTopPadding()
-                    )
-                    .verticalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = innerPaddings.calculateTopPadding()
+                )
+                .verticalScroll(rememberScrollState())
         ) {
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Dimensions.spacing.space16dp)
             ) {
 
                 MyDataProfileSection(
-                    title = title,
-                    profileUrl = profileUrl,
-                    name = name,
-                    cpf = cpf,
-                    age = age
+                    title = title, profileUrl = profileUrl, name = name, cpf = cpf, age = age
                 )
 
                 MyDataOptionsSection(
-                    options = uiState.result?.screen?.options,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    options = uiState.result?.screen?.options, modifier = Modifier.fillMaxWidth()
+                ) { action, url ->
+
+                    when (action) {
+                        IconEnum.DOCUMENT.key -> onAction(MyDataAction.OnMyPlanClick)
+                        IconEnum.DOWNLOAD.key -> onAction(MyDataAction.OnDownloadClick)
+                        IconEnum.MESSAGE.key -> onAction(MyDataAction.OnPrivacyPolicyClick(url))
+                        IconEnum.BLOCK.key -> onAction(MyDataAction.OnLogoutClick)
+                    }
+                }
             }
         }
     }
