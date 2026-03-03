@@ -63,11 +63,16 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.junit.junit)
 
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.mockk)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

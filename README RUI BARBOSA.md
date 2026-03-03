@@ -1,33 +1,13 @@
-# AndroidTest
-Teste para vaga de desenvolvedor Android
+# Detalhes
 
-Deveria fazer um fork para o github pessoal e abrir criar uma ou mais branchs e apontar para o fork
+Foi escolhido o padrão MVI com Jetpack compose para o desafio.
 
-O desafio consite em criar 3 telas.
- - Tela Principal
- - Tela Meus Dados
- - Tela Meu Plano
-
-Arquitetura, poderá se optar por: 
- - MVVM
- - MVI
- - MVVM-Clean
-
-Linguage: Kotlin
-
-Injeção de dependência: Koin
-
-Renderizar imagens remotas: Coil
-
-Android compile sdk 36 e min sdk 28
-
-Testes unitários
-
-Figma: https://www.figma.com/design/PQAFTgCZHlsmj57yaxWQJc/Sem-t%C3%ADtulo?node-id=0-1&t=HfF89ZbmO2FZ6WNW-1
-
-Das telas: 
-   
+**Observação**
 **Tela Principal**
+
+
+**Tela Principal**
+
 
 - O botão nativo deverá ser interceptado e apresentar uma modal perguntando se ele deseja sair como abaixo:
   
@@ -39,6 +19,8 @@ Opção "Não", o usuário continuará com o app aberto.
 - Ter 2 opções de navegação para a "Plataforma Nova" e para a "Plataforma Antiga"
 
 **Tela Meus Dados**
+
+![img_2.png](img_2.png)
 
 <img width="107" height="215" alt="Captura de Tela 2026-02-27 às 14 17 08" src="https://github.com/user-attachments/assets/ee2b5c9c-3c34-453a-af48-5ae70923b1e2" />
 

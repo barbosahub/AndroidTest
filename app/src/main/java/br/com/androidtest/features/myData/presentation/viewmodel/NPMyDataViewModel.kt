@@ -8,13 +8,10 @@ import br.com.androidtest.features.myData.domain.repository.IMyDataRepository
 import br.com.androidtest.features.myData.presentation.action.MyDataAction
 import br.com.androidtest.features.myData.presentation.event.MyDataEvent
 import br.com.androidtest.features.myData.presentation.state.MyDataUiState
-import br.com.androidtest.features.principal.action.PrincipalAction
-import br.com.androidtest.features.principal.event.PrincipalEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

@@ -18,16 +18,24 @@ material = "1.12.0"
 coil = "2.5.0"
 kotlinx_serialization = "1.6.0"
 
+coroutinesTest = "1.7.3"
+turbine = "1.0.0"
+mockk = "1.13.10"
+junitJunit = "4.12"
+
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
 
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -45,6 +53,7 @@ koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-view
 
 #COIL
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 
 
 [plugins]
