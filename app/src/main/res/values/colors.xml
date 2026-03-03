@@ -20,4 +20,8 @@
     <color name="bgBrandSolid">#c83c2b</color>
     <color name="bgBrandSolidPressed">#CCC83C2B</color>
 
+    <color name="divider">#adadad</color>
+
+
+
 </resources>

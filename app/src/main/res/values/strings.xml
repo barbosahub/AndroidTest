@@ -6,8 +6,22 @@
     <string name="new_platform">Plataforma Nova</string>
     <string name="old_platform">Plataforma Antiga</string>
 
+    <string name="back">Back</string>
+
     <string name="logout">Sair</string>
     <string name="logout_question">Sair?</string>
     <string name="do_you_really_want_to_log_out">Deseja realmente sair do app?</string>
+
+
+    <string name="my_data">Meus dados</string>
+
+
+    <string name="name">Nome:</string>
+    <string name="cpf">Cpf:</string>
+    <string name="age">Idade:</string>
+
+
+    <string name="my_plan">Meu Plano</string>
+
 
 </resources>

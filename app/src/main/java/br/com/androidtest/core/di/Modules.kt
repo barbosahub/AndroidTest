@@ -1,7 +1,7 @@
 package br.com.androidtest.core.di
 
-import org.koin.core.module.Module
+import br.com.androidtest.features.myData.di.myDataModule
 
 val sharedModules = listOf(
-    coreModule
+    coreModule, myDataModule
 )

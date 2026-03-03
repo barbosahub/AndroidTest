@@ -46,7 +46,7 @@ fun MenuItemPreview() {
 
 @Composable
 fun MenuItem(
-    labelText: String,
+    labelText: String? = null,
     leadingIcon: Painter? = null,
     trailingIcon: ImageVector? = null,
     onClick: () -> Unit
@@ -98,11 +98,13 @@ fun MenuItem(
                 )
             }
 
-            Box(modifier = Modifier.weight(1f)) {
-                MenuItemOneLineContent(
-                    label = labelText,
-                    labelColor = colorResource(labelColorByState)
-                )
+            labelText?.let {
+                Box(modifier = Modifier.weight(1f)) {
+                    MenuItemOneLineContent(
+                        label = it,
+                        labelColor = colorResource(labelColorByState)
+                    )
+                }
             }
 
             if (trailingIcon != null) {
@@ -114,14 +116,11 @@ fun MenuItem(
             }
         }
 
-//        if (showDivider) {
-//            LrHorizontalDivider(
-//                color = LrTheme.colorScheme.borderColors.borderTertiary,
-//                borderWidth = Dimensions.borderWidth.m
-//            )
-//        }
+        HorizontalDivider(
+            color = colorResource(R.color.divider),
+            borderWidth = Dimensions.borderWidth.s
+        )
     }
-
 }
 
 @Composable

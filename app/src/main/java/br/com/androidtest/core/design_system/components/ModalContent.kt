@@ -23,7 +23,7 @@ import br.com.androidtest.core.design_system.theme.Dimensions
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun ModalCardContentLogout() {
+fun ModalCardContentLogoutPreview() {
     AppTheme {
         Box(modifier = Modifier.padding(all = Dimensions.spacing.space16dp)) {
             ModalContent(
